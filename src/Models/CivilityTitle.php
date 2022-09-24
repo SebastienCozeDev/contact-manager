@@ -12,6 +12,7 @@ enum CivilityTitle {
     case MAITRE;
     case DOCTEUR;
     case DOCTEURE;
+    case AUTRE;
 
     public function doStuff(CivilityTitle $civilityTitle): string
     {
@@ -21,7 +22,7 @@ enum CivilityTitle {
             CivilityTitle::MAITRE => 'Maître',
             CivilityTitle::DOCTEUR => 'Docteur',
             CivilityTitle::DOCTEURE => 'Docteure',
-            default => 'Autre',
+            CivilityTitle::AUTRE => 'Autre'
         };
     }
 
