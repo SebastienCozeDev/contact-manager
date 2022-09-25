@@ -9,7 +9,7 @@ use Php\ContactManager\Models\CivilityTitle;
 use Php\ContactManager\Models\Contact;
 
 /**
- * Classe GenerateContacts servant à générer des contacts, des numéros de téléphone, des adresses mail.
+ * Classe GenerateContacts servant à générer des contacts.
  */
 class GenerateContacts
 {
