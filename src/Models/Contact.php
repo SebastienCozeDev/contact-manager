@@ -3,7 +3,6 @@
 namespace Php\ContactManager\Models;
 
 use JsonSerializable;
-use ReturnTypeWillChange;
 
 /**
  * Classe Contact correspondant à un contact.
@@ -264,8 +263,19 @@ class Contact implements JsonSerializable
         $this->mailAddresses[$mailAddress->getId()] = $mailAddress;
     }
 
-    #[ReturnTypeWillChange] public function jsonSerialize()
+    public function jsonSerialize(): array
     {
-        // TODO: Implement jsonSerialize() method.
+        return [
+            'id' => $this->id,
+            'civilityTitle' => $this->civilityTitle,
+            'lastName' => $this->lastName,
+            'firstName' => $this->firstName,
+            'secondName' => $this->secondName,
+            'company' => $this->company,
+            'position' => $this->position,
+            'phoneNumbers' => $this->phoneNumbers,
+            'mailAddresses' => $this->mailAddresses,
+            'note' => $this->note
+        ];
     }
 }
