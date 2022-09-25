@@ -131,7 +131,7 @@ class GenerateContacts
      * @return array Étant les données voulues.
      * @throws Exception
      */
-    public static function readFileData(string $filename, string $choice): array
+    public static function readFileData(string $filename): array
     {
         $datas = [];
         if (file_exists($filename)) {
