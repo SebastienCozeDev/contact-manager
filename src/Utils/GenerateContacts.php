@@ -3,11 +3,10 @@
 namespace Php\ContactManager\Utils;
 
 use Exception;
+use Faker\Factory;
 use Faker\Generator;
 use Php\ContactManager\Models\CivilityTitle;
 use Php\ContactManager\Models\Contact;
-use Php\ContactManager\Models\PhoneNumber;
-use Php\ContactManager\Models\PhoneNumberType;
 
 /**
  * Classe GenerateContacts servant à générer des contacts, des numéros de téléphone, des adresses mail.
@@ -17,7 +16,7 @@ class GenerateContacts
     /**
      * @var Generator Étant le générateur.
      */
-    protected static Generator $faker;
+    public static Generator $faker;
 
     /**
      * Permet de générer un titre de civilité.
@@ -41,75 +40,69 @@ class GenerateContacts
     }
 
     /**
-     * Permet de générer un type de numéro de téléphone.
-     * @return PhoneNumberType Étant le type.
+     * Permet de générer un contact avec son identifiant.
+     * @param int $id Étant l'identifiant du contact.
+     * @return Contact Étant le contact.
      */
-    public static function generatePhoneNumberType(): PhoneNumberType
+    public static function generateContactDataWithId(int $id): Contact
     {
-        if (self::$faker->boolean()) {
-            return PhoneNumberType::HOME;
-        } elseif (self::$faker->boolean()) {
-            return PhoneNumberType::HOME_FAX;
-        } elseif (self::$faker->boolean()) {
-            return PhoneNumberType::MAIN;
-        } elseif (self::$faker->boolean()) {
-            return PhoneNumberType::OFFICE;
-        } elseif (self::$faker->boolean()) {
-            return PhoneNumberType::OFFICE_FAX;
-        } elseif (self::$faker->boolean()) {
-            return PhoneNumberType::MOBILE;
-        } else {
-            return PhoneNumberType::OTHER;
-        }
+        return new Contact(
+            $id,
+            self::generateCivilityTitle(),
+            self::$faker->lastName(),
+            self::$faker->firstName(),
+            self::$faker->firstName(),
+            self::$faker->companySuffix(),
+            '',
+            self::$faker->phoneNumber(),
+            self::$faker->email(),
+            self::$faker->text()
+        );
+    }
+
+    public static function generateContactWithData(array $data): Contact
+    {
+        return new Contact(
+            $data['id'],
+            $data['civilityTitle'],
+            $data['lastName'],
+            $data['firstName'],
+            $data['secondName'],
+            $data['company'],
+            $data['position'],
+            $data['phoneNumber'],
+            $data['mailAddress'],
+            $data['note']
+        );
     }
 
     /**
-     * Permet de générer un numéro de téléphone.
-     * @param int $id Étant son identifiant.
-     * @return PhoneNumber Étant le numéro de téléphone généré.
+     * Permet de générer un tableau de contacts.
+     * @param int $nb Étant le nombre de contacts souhaité.
+     * @return array Étant le tableau de contacts.
      */
-    public static function generatePhoneNumberDataWithId(int $id): PhoneNumber
-    {
-        return new PhoneNumber($id, self::$faker->phoneNumber(), self::generatePhoneNumberType());
-    }
-
-    /**
-     * Permet de générer un tableau de numéro de téléphone.
-     * @param int $nb Étant le nombre de numéros de téléphone souhaité.
-     * @return array Étant le tableau de numéros de téléphone.
-     */
-    public static function generatePhoneNumberData(int $nb = 10): array
+    public static function generateContactData(int $nb = 10): array
     {
         $data = [];
         for ($i = 1; $i <= $nb; $i++) {
-            $data[$i] = self::generatePhoneNumberDataWithId($i);
+            $data[$i] = self::generateContactDataWithId($i);
         }
         return $data;
     }
 
     /**
-     * Permet de générer un numéro de téléphone à l'aide d'un tableau de données.
-     * @param array $data Étant le tableau de données.
-     * @return PhoneNumber Étant le numéro de téléphone généré.
-     */
-    public static function generatePhoneNumberWithData(array $data): PhoneNumber
-    {
-        return new PhoneNumber($data['id'], $data['phoneNumber'], $data['type']);
-    }
-
-    /**
-     * Permet d'écrire dans un fichier le résultat d'une génération de numéro de téléphone.
+     * Permet de générer des contacts et de les stocker dans un fichier.
      * @param string $filename Étant le nom du fichier.
-     * @param int $nb Étant le nombre de numéros de téléphone voulu.
+     * @param int $nb Étant le nombre de contacts voulu.
      * @throws Exception
      */
-    public static function writeFilePhoneNumberData(string $filename, int $nb = 10): void
+    public static function writeFileContactData(string $filename, int $nb = 10): void
     {
         $filehandler = fopen($filename, 'w');
         if (!$filehandler) {
-            throw new Exception(sprintf('[File access error] %s', $filename));
+            throw new Exception(sprintf('[FileAccessError] %s', $filename));
         }
-        $data = self::generatePhoneNumberData($nb);
+        $data = self::generateContactData($nb);
         fwrite($filehandler, json_encode($data, true));
         fclose($filehandler);
     }
@@ -120,32 +113,41 @@ class GenerateContacts
      * @param array $data Étant le tableau des données.
      * @throws Exception
      */
-    public static function writeFileWithData(string $filename, array $data): void
+    public static function writeFileContactWithData(string $filename, array $data): void
     {
         $filehandler = fopen($filename, 'w');
         if (!$filehandler) {
-            throw new Exception(sprintf('[File access error] %s', $filename));
+            throw new Exception(sprintf('[FileAccessError] %s', $filename));
         }
         $json = json_encode($data, true);
         fwrite($filehandler, $json);
         fclose($filehandler);
     }
 
-    public static function readFileData(string $filename, string $choice)
+    /**
+     * Permet d'avoir les données d'un fichier pour construire un tableau de contacts, de numéros de téléphone ou d'adresses mail.
+     * @param string $filename Étant le nom du fichier.
+     * @param string $choice Étant le nom du type d'objet que l'on veut. Il peut être 'Contact', 'PhoneNumber' ou 'MailAddress'.
+     * @return array Étant les données voulues.
+     * @throws Exception
+     */
+    public static function readFileData(string $filename, string $choice): array
     {
-
-    }
-
-    public static function generateContactDataWithId(int $id): Contact
-    {
-        return new Contact(
-            $id,
-            self::generateCivilityTitle(),
-            self::$faker->lastName(),
-            self::$faker->firstName(),
-            self::$faker->firstName(),
-            self::$faker->companySuffix(),
-            ''
-        );
+        $datas = [];
+        if (file_exists($filename)) {
+            $json = file_get_contents($filename);
+        } else {
+            throw new Exception(sprintf('[Unable to read file] %s', $filename));
+        }
+        if (!$json) {
+            throw new Exception(sprintf('[File access error] %s', $filename));
+        }
+        $json_data = json_decode($json, true);
+        foreach ($json_data as $data) {
+            $datas[$data['id']] = self::generateContactWithData($data);
+        }
+        return $datas;
     }
 }
+
+GenerateContacts::$faker = Factory::create('fr_FR');
