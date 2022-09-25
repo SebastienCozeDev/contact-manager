@@ -46,14 +46,14 @@ class Contact implements JsonSerializable
     protected string $position;
 
     /**
-     * @var array $phoneNumbers Étant la liste des numéros de téléphone du contact.
+     * @var string $phoneNumber Étant la liste des numéros de téléphone du contact.
      */
-    protected array $phoneNumbers;
+    protected string $phoneNumber;
 
     /**
-     * @var array $mailAddresses Étant la liste des adresses mail du contact.
+     * @var string $mailAddress Étant la liste des adresses mail du contact.
      */
-    protected array $mailAddresses;
+    protected string $mailAddress;
 
     /**
      * @var string $note Étant la note du contact.
@@ -69,11 +69,11 @@ class Contact implements JsonSerializable
      * @param string $secondName
      * @param string $company
      * @param string $position
-     * @param array $phoneNumbers
-     * @param array $mailAddresses
+     * @param string $phoneNumber
+     * @param string $mailAddresse
      * @param string $note
      */
-    public function __construct(int $id = 0, CivilityTitle $civilityTitle = CivilityTitle::AUTRE, string $lastName = '', string $firstName = '', string $secondName = '', string $company = '', string $position = '', array $phoneNumbers = [], array $mailAddresses = [], string $note = '')
+    public function __construct(int $id = 0, CivilityTitle $civilityTitle = CivilityTitle::AUTRE, string $lastName = '', string $firstName = '', string $secondName = '', string $company = '', string $position = '', string $phoneNumber = '', string $mailAddress = '', string $note = '')
     {
         $this->id = $id;
         $this->civilityTitle = $civilityTitle;
@@ -82,8 +82,8 @@ class Contact implements JsonSerializable
         $this->secondName = $secondName;
         $this->$company = $company;
         ($company == '') ? $this->position = $position : $this->position = '';
-        $this->phoneNumbers = $phoneNumbers;
-        $this->mailAddresses = $mailAddresses;
+        $this->phoneNumber = $phoneNumber;
+        $this->mailAddress = $mailAddress;
         $this->note = $note;
     }
 
@@ -149,20 +149,20 @@ class Contact implements JsonSerializable
 
     /**
      * Getter pour la liste des numéros de téléphone du contact.
-     * @return array Étant le tableau des numéros de téléphone du contact.
+     * @return string Étant le tableau des numéros de téléphone du contact.
      */
-    public function getPhoneNumbers(): array
+    public function getPhoneNumber(): string
     {
-        return $this->phoneNumbers;
+        return $this->phoneNumber;
     }
 
     /**
      * Getter pour la liste des adresses mail du contact.
-     * @return array Étant le tableau des adresses mail du contact.
+     * @return string Étant le tableau des adresses mail du contact.
      */
-    public function getMailAddresses(): array
+    public function getMailAddresses(): string
     {
-        return $this->mailAddresses;
+        return $this->mailAddress;
     }
 
     /**
@@ -246,21 +246,21 @@ class Contact implements JsonSerializable
     }
 
     /**
-     * Fonction permettant d'ajouter un numéro de téléphone au contact.
-     * @param PhoneNumber $phoneNumber Étant le numéro de téléphone.
+     * Setter pour le numéro de téléphone du contact.
+     * @param string $phoneNumber Étant le numéro de téléphone.
      */
-    public function addPhoneNumber(PhoneNumber $phoneNumber): void
+    public function setPhoneNumber(string $phoneNumber): void
     {
-        $this->phoneNumbers[$phoneNumber->getId()] = $phoneNumber;
+        $this->phoneNumber = $phoneNumber;
     }
 
     /**
-     * Fonction permettant d'ajouter une adresse mail au contact.
-     * @param MailAddress $mailAddress Étant l'adresse mail.
+     * Setter pour l'adresse mail du contact.
+     * @param string $mailAddress Étant l'adresse mail.
      */
-    public function addMailAddress(MailAddress $mailAddress): void
+    public function addMailAddress(string $mailAddress): void
     {
-        $this->mailAddresses[$mailAddress->getId()] = $mailAddress;
+        $this->mailAddress = $mailAddress;
     }
 
     /**
@@ -277,8 +277,8 @@ class Contact implements JsonSerializable
             'secondName' => $this->secondName,
             'company' => $this->company,
             'position' => $this->position,
-            'phoneNumbers' => $this->phoneNumbers,
-            'mailAddresses' => $this->mailAddresses,
+            'phoneNumber' => $this->phoneNumber,
+            'mailAddress' => $this->mailAddress,
             'note' => $this->note
         ];
     }
