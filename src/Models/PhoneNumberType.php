@@ -16,7 +16,7 @@ enum PhoneNumberType
     case HOME_FAX;
     case OTHER;
 
-    public function doStuff(PhoneNumberType $phoneNumberType): string
+    public static function doStuff(PhoneNumberType $phoneNumberType): string
     {
         return match ($phoneNumberType) {
             PhoneNumberType::MOBILE => 'Mobile',
