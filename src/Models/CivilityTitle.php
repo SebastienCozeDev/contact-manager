@@ -14,7 +14,7 @@ enum CivilityTitle {
     case DOCTEURE;
     case AUTRE;
 
-    public function doStuff(CivilityTitle $civilityTitle): string
+    public static function doStuff(CivilityTitle $civilityTitle): string
     {
         return match ($civilityTitle) {
             CivilityTitle::MADAME => 'Madame',
