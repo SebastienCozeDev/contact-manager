@@ -10,7 +10,7 @@ use Php\ContactManager\Models\PhoneNumber;
 use Php\ContactManager\Models\PhoneNumberType;
 
 /**
- * Classe GenerateContacts servant à générer des contacts.
+ * Classe GenerateContacts servant à générer des contacts, des numéros de téléphone, des adresses mail.
  */
 class GenerateContacts
 {
@@ -133,7 +133,7 @@ class GenerateContacts
 
     public static function readFileData(string $filename, string $choice)
     {
-        
+
     }
 
     public static function generateContactDataWithId(int $id): Contact
