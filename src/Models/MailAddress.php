@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe correspondant à un numéro de téléphone.
+ * Classe correspondant à une adresse mail.
  */
 
 namespace Php\ContactManager\Models;
