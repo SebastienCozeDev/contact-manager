@@ -263,6 +263,10 @@ class Contact implements JsonSerializable
         $this->mailAddresses[$mailAddress->getId()] = $mailAddress;
     }
 
+    /**
+     * Fonction permettant d'avoir l'objet en format JSON.
+     * @return array Étant l'objet au format JSON.
+     */
     public function jsonSerialize(): array
     {
         return [
