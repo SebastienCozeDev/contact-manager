@@ -70,7 +70,7 @@ class Contact implements JsonSerializable
      * @param string $company
      * @param string $position
      * @param string $phoneNumber
-     * @param string $mailAddresse
+     * @param string $mailAddress
      * @param string $note
      */
     public function __construct(int $id = 0, CivilityTitle $civilityTitle = CivilityTitle::AUTRE, string $lastName = '', string $firstName = '', string $secondName = '', string $company = '', string $position = '', string $phoneNumber = '', string $mailAddress = '', string $note = '')
