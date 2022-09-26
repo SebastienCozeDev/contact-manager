@@ -26,4 +26,16 @@ enum CivilityTitle {
         };
     }
 
+    public static function fromString(string $str): CivilityTitle
+    {
+        return match ($str) {
+            'Madame' => CivilityTitle::MADAME,
+            'Monsieur' => CivilityTitle::MONSIEUR,
+            'Maître' => CivilityTitle::MAITRE,
+            'Docteur' => CivilityTitle::DOCTEUR,
+            'Docteure' => CivilityTitle::DOCTEURE,
+            'Autre' => CivilityTitle::AUTRE
+        };
+    }
+
 }

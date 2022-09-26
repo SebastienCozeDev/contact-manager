@@ -16,7 +16,8 @@
     "require": {
         "eftec/bladeone": "^4.6",
         "miladrahimi/phprouter": "^5.1",
-        "laminas/laminas-diactoros": "^2.17"
+        "laminas/laminas-diactoros": "^2.17",
+      "ext-json": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.20",
