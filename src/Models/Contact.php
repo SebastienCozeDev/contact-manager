@@ -36,9 +36,9 @@ class Contact implements JsonSerializable
     protected string $secondName;
 
     /**
-     * @var string $company Étant l'organisation du contact.
+     * @var string $organisation Étant l'organisation du contact.
      */
-    protected string $company;
+    protected string $organisation;
 
     /**
      * @var string $position Étant le poste du contact.
@@ -67,21 +67,21 @@ class Contact implements JsonSerializable
      * @param string $lastName
      * @param string $firstName
      * @param string $secondName
-     * @param string $company
+     * @param string $organisation
      * @param string $position
      * @param string $phoneNumber
      * @param string $mailAddress
      * @param string $note
      */
-    public function __construct(int $id = 0, CivilityTitle $civilityTitle = CivilityTitle::AUTRE, string $lastName = '', string $firstName = '', string $secondName = '', string $company = '', string $position = '', string $phoneNumber = '', string $mailAddress = '', string $note = '')
+    public function __construct(int $id = 0, CivilityTitle $civilityTitle = CivilityTitle::AUTRE, string $lastName = '', string $firstName = '', string $secondName = '', string $organisation = '', string $position = '', string $phoneNumber = '', string $mailAddress = '', string $note = '')
     {
         $this->id = $id;
         $this->civilityTitle = $civilityTitle;
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->secondName = $secondName;
-        $this->$company = $company;
-        ($company == '') ? $this->position = $position : $this->position = '';
+        $this->$organisation = $organisation;
+        $this->position = $position;
         $this->phoneNumber = $phoneNumber;
         $this->mailAddress = $mailAddress;
         $this->note = $note;
@@ -133,9 +133,9 @@ class Contact implements JsonSerializable
      * Getter pour l'organisation du contact.
      * @return string Étant l'organisation du contact.
      */
-    public function getCompany(): string
+    public function getOrganisation(): string
     {
-        return $this->company;
+        return $this->organisation;
     }
 
     /**
@@ -220,11 +220,11 @@ class Contact implements JsonSerializable
     }
 
     /**
-     * @param string $company Étant l'organisation du contact.
+     * @param string $organisation Étant l'organisation du contact.
      */
-    public function setCompany(string $company): void
+    public function setOrganisation(string $organisation): void
     {
-        $this->company = $company;
+        $this->organisation = $organisation;
     }
 
     /**
@@ -258,7 +258,7 @@ class Contact implements JsonSerializable
      * Setter pour l'adresse mail du contact.
      * @param string $mailAddress Étant l'adresse mail.
      */
-    public function addMailAddress(string $mailAddress): void
+    public function setMailAddress(string $mailAddress): void
     {
         $this->mailAddress = $mailAddress;
     }
@@ -269,17 +269,16 @@ class Contact implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
-        return [
+        return array(
             'id' => $this->id,
-            'civilityTitle' => $this->civilityTitle,
+            'civilityTitle' => CivilityTitle::doStuff($this->civilityTitle),
             'lastName' => $this->lastName,
             'firstName' => $this->firstName,
             'secondName' => $this->secondName,
-            'company' => $this->company,
             'position' => $this->position,
             'phoneNumber' => $this->phoneNumber,
             'mailAddress' => $this->mailAddress,
             'note' => $this->note
-        ];
+        );
     }
 }
