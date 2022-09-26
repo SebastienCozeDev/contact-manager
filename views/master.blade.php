@@ -9,6 +9,6 @@
     <main role="main">
         @yield('main')
     </main>
-    @yield('footer')
+    @include('footer')
 </body>
 </html>
