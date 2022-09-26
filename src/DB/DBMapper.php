@@ -120,29 +120,53 @@ class DBMapper implements IDBMapper
      * Permet d'insérer un contact.
      * @param Contact $contact Étant le contact.
      * @return Contact|false Étant le contact.
+     * @throws Exception
      */
     function insertContact(Contact $contact): Contact|false
     {
-        // TODO: Implement insertContact() method.
+        if ($contact->getId() == 0) {
+            $contact->setId($this->getNextId());
+        }
+        $c = $this->findContactById($contact->getId());
+        if (!$c) {
+            $this->datas[$contact->getId()] = $contact;
+            GenerateContacts::writeFileContactWithData($this->filename, $this->datas);
+            return $contact;
+        }
+        return false;
     }
 
     /**
      * Permet de modifier un contact.
      * @param Contact $contact Étant le contact.
      * @return Contact|false Étant le contact.
+     * @throws Exception
      */
     function updateContact(Contact $contact): Contact|false
     {
-        // TODO: Implement updateContact() method.
+        $c = $this->findContactById($contact->getId());
+        if ($c) {
+            $this->datas[$contact->getId()] = $contact;
+            GenerateContacts::writeFileContactWithData($this->filename, $this->datas);
+            return $contact;
+        }
+        return false;
     }
 
     /**
      * Permet de supprimer un contact.
      * @param int $id Étant son identifiant.
      * @return bool Vrai si la suppression a bien eu lieu.
+     * @throws Exception
      */
     function deleteContact(int $id): bool
     {
-        // TODO: Implement deleteContact() method.
+        $p = $this->findContactById($id);
+        if ($p) {
+            unset($this->datas[$id]);
+            GenerateContacts::writeFileContactWithData($this->filename, $this->datas);
+            return true;
+        }
+        return false;
     }
 }
