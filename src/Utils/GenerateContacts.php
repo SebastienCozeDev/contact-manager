@@ -64,11 +64,11 @@ class GenerateContacts
     {
         return new Contact(
             $data['id'],
-            $data['civilityTitle'],
+            CivilityTitle::fromString($data['civilityTitle']),
             $data['lastName'],
             $data['firstName'],
             $data['secondName'],
-            $data['company'],
+            $data['organisation'],
             $data['position'],
             $data['phoneNumber'],
             $data['mailAddress'],
@@ -127,7 +127,6 @@ class GenerateContacts
     /**
      * Permet d'avoir les données d'un fichier pour construire un tableau de contacts, de numéros de téléphone ou d'adresses mail.
      * @param string $filename Étant le nom du fichier.
-     * @param string $choice Étant le nom du type d'objet que l'on veut. Il peut être 'Contact', 'PhoneNumber' ou 'MailAddress'.
      * @return array Étant les données voulues.
      * @throws Exception
      */

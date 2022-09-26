@@ -60,27 +60,14 @@ class Contact implements JsonSerializable
      */
     protected string $note;
 
-    /**
-     * Constructeur de l'objet Contact.
-     * @param int $id
-     * @param CivilityTitle $civilityTitle
-     * @param string $lastName
-     * @param string $firstName
-     * @param string $secondName
-     * @param string $organisation
-     * @param string $position
-     * @param string $phoneNumber
-     * @param string $mailAddress
-     * @param string $note
-     */
-    public function __construct(int $id = 0, CivilityTitle $civilityTitle = CivilityTitle::AUTRE, string $lastName = '', string $firstName = '', string $secondName = '', string $organisation = '', string $position = '', string $phoneNumber = '', string $mailAddress = '', string $note = '')
+    public function __construct(int $id = 0, CivilityTitle $civilityTitle = CivilityTitle::AUTRE, string $lastName = '', string $firstName = '', string $secondName = '', string $org = '', string $position = '', string $phoneNumber = '', string $mailAddress = '', string $note = '')
     {
         $this->id = $id;
         $this->civilityTitle = $civilityTitle;
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->secondName = $secondName;
-        $this->$organisation = $organisation;
+        $this->organisation = $org;
         $this->position = $position;
         $this->phoneNumber = $phoneNumber;
         $this->mailAddress = $mailAddress;
@@ -275,6 +262,7 @@ class Contact implements JsonSerializable
             'lastName' => $this->lastName,
             'firstName' => $this->firstName,
             'secondName' => $this->secondName,
+            'organisation' => $this->organisation,
             'position' => $this->position,
             'phoneNumber' => $this->phoneNumber,
             'mailAddress' => $this->mailAddress,

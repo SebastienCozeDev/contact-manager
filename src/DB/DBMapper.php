@@ -48,10 +48,10 @@ class DBMapper implements IDBMapper
             }
         }
         try {
-            GenerateContacts::readFileData($this->filename);
+            $this->datas =  GenerateContacts::readFileData($this->filename);
         } catch (Exception $e) {
             try {
-                GenerateContacts::writeFileContactData($this->filename, 50);
+                GenerateContacts::writeFileContactData($this->filename, 300);
             } catch (Exception $e) {
                 throw new Exception(sprintf('[FileAccessError] %s', $this->filename));
             }
@@ -168,5 +168,14 @@ class DBMapper implements IDBMapper
             return true;
         }
         return false;
+    }
+
+    /**
+     * Getter pour le nom du fichier par défaut.
+     * @return string Étant le nom du fichier par défaut.
+     */
+    public static function getDefaultFilename(): string
+    {
+        return self::DEFAULT_FILENAME;
     }
 }
