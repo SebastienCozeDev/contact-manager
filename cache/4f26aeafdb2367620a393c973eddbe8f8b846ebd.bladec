@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+ <meta charset="UTF-8">
+ <title>Contact Manager - <?php echo $this->yieldContent('title'); ?></title>
+</head>
+<body>
+ <?php echo $this->runChild('header'); ?>
+ <main role="main">
+ <?php echo $this->yieldContent('main'); ?>
+ </main>
+ <?php echo $this->runChild('footer'); ?>
+</body>
+</html>

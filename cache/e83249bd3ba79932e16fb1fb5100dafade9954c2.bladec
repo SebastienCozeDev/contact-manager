@@ -1,0 +1,13 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('title', $title); ?>
+
+<?php $this->startSection('main'); ?>
+ <h2 id="#about">Bienvenue sur Contact Manager !</h2>
+ <p>
+ Contact Manager sert à gérer vos contacts. En effet, vous pouvez ajouter des contacts, les modifiers et les
+ supprimer.
+ </p>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('master'); } ?>
