@@ -11,8 +11,8 @@ Le projet consiste en la conception d'un gestionnaire de contacts. Chaque contac
 - Un second prénom.
 - Une organisation.
 - Un poste dans cette organisation. Cette donnée ne peut pas exister si le contact n'a pas d'organisation.
-- Plusieurs numéros de téléphone pouvant être de type *Mobile*, *Domicile*, *Bureau*, *Principal*, *Fax bureau*, *Fax domicile* ou *Autre*. Un même numéro de téléphone ne peut pas avoir plusieurs types.
-- Plusieurs adresses mail pouvant être de type *Personnel*, *Professionnel* ou *Autre*. Une même adresse mail ne peut pas avoir plusieurs types.
+- Un numéro de téléphone.
+- Une adresse mail.
 - Une note.
 
 ## Dépendances utilisées
