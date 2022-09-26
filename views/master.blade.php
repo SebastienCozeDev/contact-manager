@@ -2,13 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Manager - @yield("title")</title>
+    <title>Contact Manager - @yield('title')</title>
 </head>
 <body>
-    @include("header")
+    @include('header')
     <main role="main">
-        @yield("main")
+        @yield('main')
     </main>
-    @yield("footer")
+    @yield('footer')
 </body>
 </html>
