@@ -21,6 +21,9 @@ $router->get('/', [HomeController::class, 'home']);
  */
 $router->get('/contacts', [ContactsController::class, 'contacts']);
 
+$router->get('id', '[0-9]+');
+$router->get('/contacts/{id}', [ContactsController::class, 'contact']);
+
 try {
     $router->dispatch();
 } catch (RouteNotFoundException $e) {

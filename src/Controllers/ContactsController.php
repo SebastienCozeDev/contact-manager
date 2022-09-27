@@ -50,7 +50,7 @@ class ContactsController
     public function contact(int $id): HtmlResponse
     {
         $contact = $this->bd->findContactById($id);
-        $html = $this->blade->run("contact-details", ['title' => $contact->getId(), 'contact' => $contact]);
+        $html = $this->blade->run("contact-details", ['title' => $contact->getLastName().' '.$contact->getFirstName(), 'contact' => $contact]);
         return new HtmlResponse($html, 200);
     }
 }
