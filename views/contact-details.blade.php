@@ -17,25 +17,43 @@
                 <td>{{ $contact->getId() }}</td>
             </tr>
             <tr>
+                <th>Titre de civilité</th>
+                <td>{{ $civilityTitle ?? $noKnown }}</td>
+            </tr>
+            <tr>
                 <th>Nom de famille</th>
-                <td>{{ $contact->getLastName() }}</td>
+                <td>{{ $contact->getLastName() ?? $noKnown }}</td>
             </tr>
             <tr>
                 <th>Premier prénom</th>
-                <td>{{ $contact->getFirstName() }}</td>
+                <td>{{ $contact->getFirstName() ?? $noKnown }}</td>
+            </tr>
+            <tr>
+                <th>Second prénom</th>
+                <td>{{ $contact->getSecondName() ?? $noKnown }}</td>
             </tr>
             <tr>
                 <th>Organisation</th>
-                <td>{{ $contact->getOrganisation() }}</td>
+                <td>{{ $contact->getOrganisation() ?? $noKnown }}</td>
+            </tr>
+            <tr>
+                <th>Poste</th>
+                <td>{{ $contact->getPosition() ?? $noKnown }}</td>
             </tr>
             <tr>
                 <th>Numéro de téléphone</th>
-                <td><a href="tel:{{ $contact->getPhoneNumber() }}">{{ $contact->getPhoneNumber() }}</a></td>
+                <td><a href="tel:{{ $contact->getPhoneNumber() ?? '#' }}">{{ $contact->getPhoneNumber() ?? $noKnown }}</a></td>
             </tr>
             <tr>
                 <th>Adresse mail</th>
-                <td><a href="mailto:{{ $contact->getMailAddress() }}">{{ $contact->getMailAddress() }}</a></td>
+                <td><a href="mailto:{{ $contact->getMailAddress() ?? '#' }}">{{ $contact->getMailAddress() ?? $noKnown }}</a></td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ $contact->getNote() ?? $noKnown }}</td>
             </tr>
         </tbody>
     </table>
+    <a href="/contacts/{{ $contact->getId() }}/update">Modifier ce contact</a>
+    <a href="/contacts/{{ $contact->getId() }}/delete">Supprimer ce contact</a>
 @endsection
