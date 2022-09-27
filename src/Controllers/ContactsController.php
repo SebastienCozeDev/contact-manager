@@ -40,4 +40,17 @@ class ContactsController
         $html = $this->blade->run('list-all-contacts', ['title' => 'Liste des contacts', 'contacts' => $contacts]);
         return new HtmlResponse($html, 200);
     }
+
+    /**
+     * Permet de renvoyer la page du contact voulu au client.
+     * @param int $id Étant l'identifiant de ce contact.
+     * @return HtmlResponse Étant la réponse qui sera envoyée au client.
+     * @throws Exception
+     */
+    public function contact(int $id): HtmlResponse
+    {
+        $contact = $this->bd->findContactById($id);
+        $html = $this->blade->run("contact-details", ['title' => $contact->getId(), 'contact' => $contact]);
+        return new HtmlResponse($html, 200);
+    }
 }
