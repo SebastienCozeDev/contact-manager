@@ -6,6 +6,7 @@ use eftec\bladeone\BladeOne;
 use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Php\ContactManager\DB\DBMapper;
+use Php\ContactManager\Models\CivilityTitle;
 
 /**
  * Classe ContactsController étant le contrôleur qui gère les contacts.
@@ -38,6 +39,19 @@ class ContactsController
     {
         $contacts = $this->bd->allContacts();
         $html = $this->blade->run('list-all-contacts', ['title' => 'Liste des contacts', 'contacts' => $contacts]);
+        return new HtmlResponse($html, 200);
+    }
+
+    /**
+     * Permet de renvoyer la page du contact voulu au client.
+     * @param int $id Étant l'identifiant de ce contact.
+     * @return HtmlResponse Étant la réponse qui sera envoyée au client.
+     * @throws Exception
+     */
+    public function contact(int $id): HtmlResponse
+    {
+        $contact = $this->bd->findContactById($id);
+        $html = $this->blade->run("contact-details", ['title' => $contact->getLastName().' '.$contact->getFirstName(), 'contact' => $contact, 'civilityTitle' => CivilityTitle::doStuff($contact->getCivilityTitle()), 'noKnown' => 'Non renseigné']);
         return new HtmlResponse($html, 200);
     }
 }
