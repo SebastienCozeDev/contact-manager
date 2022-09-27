@@ -13,6 +13,7 @@
             <th>Organisation</th>
             <th>Numéro de téléphone</th>
             <th>Adresse mail</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -22,8 +23,9 @@
                <td>{{ $contact->getLastName() }}</td>
                <td>{{ $contact->getFirstName() }}</td>
                <td>{{ $contact->getOrganisation() }}</td>
-               <td>{{ $contact->getPhoneNumber() }}</td>
-               <td>{{ $contact->getMailAddress() }}</td>
+              <td><a href="tel:{{ $contact->getPhoneNumber() }}">{{ $contact->getPhoneNumber() }}</a></td>
+               <td><a href="mailto:{{ $contact->getMailAddress() }}">{{ $contact->getMailAddress() }}</a></td>
+               <td><a href="/contacts/{{ $contact->getId() }}">Voir</a></td>
            </tr>
         @endforeach
         </tbody>
