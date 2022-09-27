@@ -4,13 +4,22 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\TextResponse;
 use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
 use MiladRahimi\PhpRouter\Router;
+use Php\ContactManager\Controllers\ContactsController;
 use Php\ContactManager\Controllers\HomeController;
 
 require("../vendor/autoload.php");
 
 $router = Router::create();
 
+/**
+ * Route de la page d'accueil.
+ */
 $router->get('/', [HomeController::class, 'home']);
+
+/**
+ * Route de la page des contacts.
+ */
+$router->get('/contacts', [ContactsController::class, 'contacts']);
 
 try {
     $router->dispatch();

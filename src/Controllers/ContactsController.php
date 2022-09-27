@@ -30,7 +30,7 @@ class ContactsController
     }
 
     /**
-     * Permet de renvoyer la page d'accueil au client.
+     * Permet de renvoyer la page des contacts au client.
      * @return HtmlResponse Étant la réponse qui sera envoyée au client.
      * @throws Exception
      */
