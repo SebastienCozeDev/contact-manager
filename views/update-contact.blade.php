@@ -52,7 +52,7 @@
             </div>
             <div>
                 <label for="note">Note : </label>
-                <textarea id="note" name="note" placeholder="Note du contact">{{ $contact->getMailAddress() }}</textarea>
+                <textarea id="note" name="note" placeholder="Note du contact">{{ $contact->getNote() }}</textarea>
             </div>
             <div>
                 <a href="/contacts/{{ $contact->getId() }}">Retour</a>

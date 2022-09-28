@@ -17,21 +17,27 @@ $router = Router::create();
 $router->get('/', [HomeController::class, 'home']);
 
 /**
- * Affichage de l'ensemble des clients.
+ * Affichage de l'ensemble des contacts.
  */
 $router->get('/contacts', [ContactsController::class, 'contacts']);
 
 /**
- * Affichage d'un client en particulier.
+ * Affichage d'un contact en particulier.
  */
 $router->get('id', '[0-9]+');
 $router->get('/contacts/{id}', [ContactsController::class, 'contact']);
 
 /**
- * Création d'un client.
+ * Création d'un contact.
  */
 $router->get('/contacts/create', [ContactsController::class, 'createContactGet']);
 $router->post('/contacts', [ContactsController::class, 'createContactPost']);
+
+/**
+ * Modification d'un contact.
+ */
+$router->get('/contacts/{id}/update', [ContactsController::class, 'updateContactGet']);
+$router->post('/contacts/{id}', [ContactsController::class, 'updateContactPost']);
 
 
 
