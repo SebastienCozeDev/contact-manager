@@ -72,6 +72,19 @@ class ContactsController
     }
 
     /**
+     * Permet de renvoyer la page de modification du contact au client.
+     * @param int $id Étant l'identifiant du contact à modifier.
+     * @return HtmlResponse Étant la réponse qui sera envoyée au client.
+     * @throws Exception
+     */
+    public function updateContactGet(int $id): HtmlResponse
+    {
+        $contact = $this->db->findContactById($id);
+        $html = $this->blade->run('update-contact', ['contact' => $contact]);
+        return new HtmlResponse($html, 200);
+    }
+
+    /**
      * Permet de gérer la demande de création de contact.
      * @param ServerRequest $request Étant la requête reçue par le serveur.
      * @return string|RedirectResponse Étant la réponse donnée au client.
@@ -82,9 +95,26 @@ class ContactsController
         $contact = new Contact();
         $error = $this->validContact($request, $contact);
         if (!empty($error)) {
-            return $this->blade->run('create-contact', ['contact' => $contact, 'feedback' => $error]);
+            return $this->blade->run('create-contact', ['title' => 'Nouveau contact', 'contact' => $contact, 'feedback' => $error]);
         }
         $this->db->insertContact($contact);
+        return new RedirectResponse('/contacts/'.$contact->getId());
+    }
+
+    /**
+     * Permet de gérer la demande de modification du contact.
+     * @param ServerRequest $request Étant la requête reçue par le serveur.
+     * @return string|RedirectResponse Étant la réponse donnée au client.
+     * @throws Exception
+     */
+    public function updateContactPost(int $id, ServerRequest $request): string|RedirectResponse
+    {
+        $contact = $this->db->findContactById($id);
+        $error = $this->validContact($request, $contact);
+        if (!empty($error)) {
+            return $this->blade->run('update-contact', ['contact' => $contact, 'feedback' => $error]);
+        }
+        $this->db->updateContact($contact);
         return new RedirectResponse('/contacts/'.$contact->getId());
     }
 
