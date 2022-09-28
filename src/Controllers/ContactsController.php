@@ -85,7 +85,7 @@ class ContactsController
             return $this->blade->run('create-contact', ['contact' => $contact, 'feedback' => $error]);
         }
         $this->db->insertContact($contact);
-        return new RedirectResponse('/contacts');
+        return new RedirectResponse('/contacts/'.$contact->getId());
     }
 
     /**
