@@ -7,6 +7,7 @@ use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Php\ContactManager\DB\DBMapper;
 use Php\ContactManager\Models\CivilityTitle;
+use Php\ContactManager\Models\Contact;
 
 /**
  * Classe ContactsController étant le contrôleur qui gère les contacts.
@@ -52,6 +53,18 @@ class ContactsController
     {
         $contact = $this->bd->findContactById($id);
         $html = $this->blade->run("contact-details", ['title' => $contact->getLastName().' '.$contact->getFirstName(), 'contact' => $contact, 'civilityTitle' => CivilityTitle::doStuff($contact->getCivilityTitle()), 'noKnown' => 'Non renseigné']);
+        return new HtmlResponse($html, 200);
+    }
+
+    /**
+     * Permet de renvoyer la page de la création du contact au client.
+     * @return HtmlResponse Étant la réponse qui sera envoyée au client.
+     * @throws Exception
+     */
+    public function createContactGet(): HtmlResponse
+    {
+        $contact = new Contact();
+        $html = $this->blade->run('create-contact', ['title' => 'Nouveau contact', 'contact' => $contact]);
         return new HtmlResponse($html, 200);
     }
 }

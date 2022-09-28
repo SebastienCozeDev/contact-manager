@@ -27,6 +27,11 @@ $router->get('/contacts', [ContactsController::class, 'contacts']);
 $router->get('id', '[0-9]+');
 $router->get('/contacts/{id}', [ContactsController::class, 'contact']);
 
+/**
+ * Route de la page de création d'un contact.
+ */
+$router->get('/contacts/create', [ContactsController::class, 'createContactGet']);
+
 try {
     $router->dispatch();
 } catch (RouteNotFoundException $e) {

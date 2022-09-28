@@ -60,7 +60,7 @@
             </div>
             <div>
                 <button type="submit">Ajouter</button>
-            </div>email
+            </div>
         </fieldset>
     </form>
 @endsection
