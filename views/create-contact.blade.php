@@ -4,11 +4,7 @@
 
 @if(isset($feedback))
     <h4>Attention</h4>
-    <ul>
-        @foreach($feedback as $info)
-            <li>{{ $info }}</li>
-        @endforeach
-    </ul>
+    <p>{{ $feedback }}</p>
 @endif
 
 @section('main')
@@ -59,6 +55,7 @@
                 <textarea id="note" name="note" placeholder="Note du contact">{{ $contact->getMailAddress() }}</textarea>
             </div>
             <div>
+                <a href="/contacts">Retour</a>
                 <button type="submit">Ajouter</button>
             </div>
         </fieldset>

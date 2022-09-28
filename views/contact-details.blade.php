@@ -54,6 +54,7 @@
             </tr>
         </tbody>
     </table>
+    <a href="/contacts">Retour</a>
     <a href="/contacts/{{ $contact->getId() }}/update">Modifier ce contact</a>
     <a href="/contacts/{{ $contact->getId() }}/delete">Supprimer ce contact</a>
 @endsection

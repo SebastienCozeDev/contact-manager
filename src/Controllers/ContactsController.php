@@ -113,6 +113,7 @@ class ContactsController
         $contact->setSecondName($secondName);
         $contact->setOrganisation($organisation);
         $contact->setPosition($position);
+        $contact->setNote($note);
         if (empty($lastName)) $error = 'Le nom du contact est obligatoire pour la création du contact.';
         elseif (empty($phoneNumber) && empty($mailAddress)) $error = 'Au minimum, le contact doit posséder un numéro de téléphone ou une adresse mail.';
         if (!empty($lastName)) $contact->setLastName($lastName);
