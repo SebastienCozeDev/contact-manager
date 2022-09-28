@@ -5,6 +5,7 @@ namespace Php\ContactManager\Controllers;
 use eftec\bladeone\BladeOne;
 use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\ServerRequest;
 use MongoDB\Driver\Server;
 use Php\ContactManager\DB\DBMapper;
@@ -21,7 +22,7 @@ class ContactsController
      */
     private BladeOne $blade;
 
-    private DBMapper $bd;
+    private DBMapper $db;
 
     /**
      * Constructeur de l'objet HomeController.
@@ -30,7 +31,7 @@ class ContactsController
     public function __construct()
     {
         $this->blade = new BladeOne(__DIR__ . "/../../views", __DIR__ . "/../../cache");
-        $this->bd = DBMapper::getInstance();
+        $this->db = DBMapper::getInstance();
     }
 
     /**
@@ -40,7 +41,7 @@ class ContactsController
      */
     public function contacts(): HtmlResponse
     {
-        $contacts = $this->bd->allContacts();
+        $contacts = $this->db->allContacts();
         $html = $this->blade->run('list-all-contacts', ['title' => 'Liste des contacts', 'contacts' => $contacts]);
         return new HtmlResponse($html, 200);
     }
@@ -53,7 +54,7 @@ class ContactsController
      */
     public function contact(int $id): HtmlResponse
     {
-        $contact = $this->bd->findContactById($id);
+        $contact = $this->db->findContactById($id);
         $html = $this->blade->run("contact-details", ['title' => $contact->getLastName() . ' ' . $contact->getFirstName(), 'contact' => $contact, 'civilityTitle' => CivilityTitle::doStuff($contact->getCivilityTitle()), 'noKnown' => 'Non renseigné']);
         return new HtmlResponse($html, 200);
     }
@@ -70,9 +71,21 @@ class ContactsController
         return new HtmlResponse($html, 200);
     }
 
-    public function createContactPost()
+    /**
+     * Permet de gérer la demande de création de contact.
+     * @param ServerRequest $request Étant la requête reçue par le serveur.
+     * @return string|RedirectResponse Étant la réponse donnée au client.
+     * @throws Exception
+     */
+    public function createContactPost(ServerRequest $request): string|RedirectResponse
     {
         $contact = new Contact();
+        $error = $this->validContact($request, $contact);
+        if (!empty($error)) {
+            return $this->blade->run('create-contact', ['contact' => $contact, 'feedback' => $error]);
+        }
+        $this->db->insertContact($contact);
+        return new RedirectResponse('/contacts');
     }
 
     /**

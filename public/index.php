@@ -12,25 +12,28 @@ require("../vendor/autoload.php");
 $router = Router::create();
 
 /**
- * Route de la page d'accueil.
+ * Accueil de l'application web.
  */
 $router->get('/', [HomeController::class, 'home']);
 
 /**
- * Route de la page des contacts.
+ * Affichage de l'ensemble des clients.
  */
 $router->get('/contacts', [ContactsController::class, 'contacts']);
 
 /**
- * Route de la page de contact particulier.
+ * Affichage d'un client en particulier.
  */
 $router->get('id', '[0-9]+');
 $router->get('/contacts/{id}', [ContactsController::class, 'contact']);
 
 /**
- * Route de la page de création d'un contact.
+ * Création d'un client.
  */
 $router->get('/contacts/create', [ContactsController::class, 'createContactGet']);
+$router->post('/contacts', [ContactsController::class, 'createContactPost']);
+
+
 
 try {
     $router->dispatch();
