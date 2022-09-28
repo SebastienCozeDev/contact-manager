@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', $title)
+@section('title', $contact->getLastName().$contact->getFirstName())
 
 @if(isset($feedback))
     <h4>Attention</h4>
@@ -8,9 +8,9 @@
 @endif
 
 @section('main')
-    <form method="POST" action="/contacts">
+    <form method="POST" action="/contacts/{{ $contact->getId() }}">
         <fieldset>
-            <legend>Ajout d'un contact</legend>
+            <legend>Modification de {{ $contact->getLastName().$contact->getFirstName() }}</legend>
             <div>
                 <label for="civility-title">Titre de civilité : </label>
                 <select name="civilityTitle" id="civility-title">
@@ -55,7 +55,7 @@
                 <textarea id="note" name="note" placeholder="Note du contact">{{ $contact->getMailAddress() }}</textarea>
             </div>
             <div>
-                <a href="/contacts">Retour</a>
+                <a href="/contacts/{{ $contact->getId() }}">Retour</a>
                 <button type="submit">Ajouter</button>
             </div>
         </fieldset>
