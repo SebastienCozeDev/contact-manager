@@ -5,6 +5,8 @@ namespace Php\ContactManager\Controllers;
 use eftec\bladeone\BladeOne;
 use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\ServerRequest;
+use MongoDB\Driver\Server;
 use Php\ContactManager\DB\DBMapper;
 use Php\ContactManager\Models\CivilityTitle;
 use Php\ContactManager\Models\Contact;
@@ -52,7 +54,7 @@ class ContactsController
     public function contact(int $id): HtmlResponse
     {
         $contact = $this->bd->findContactById($id);
-        $html = $this->blade->run("contact-details", ['title' => $contact->getLastName().' '.$contact->getFirstName(), 'contact' => $contact, 'civilityTitle' => CivilityTitle::doStuff($contact->getCivilityTitle()), 'noKnown' => 'Non renseigné']);
+        $html = $this->blade->run("contact-details", ['title' => $contact->getLastName() . ' ' . $contact->getFirstName(), 'contact' => $contact, 'civilityTitle' => CivilityTitle::doStuff($contact->getCivilityTitle()), 'noKnown' => 'Non renseigné']);
         return new HtmlResponse($html, 200);
     }
 
@@ -66,5 +68,43 @@ class ContactsController
         $contact = new Contact();
         $html = $this->blade->run('create-contact', ['title' => 'Nouveau contact', 'contact' => $contact]);
         return new HtmlResponse($html, 200);
+    }
+
+    public function createContactPost()
+    {
+        $contact = new Contact();
+    }
+
+    /**
+     * Permet d'avoir l'erreur, si elle existe, de la création ou de la modification d'un contact.
+     * @param ServerRequest $request Étant la requête du serveur.
+     * @param Contact $contact Étant le contact voulu.
+     * @return string Étant l'erreur de création ou de modification. Si elle n'existe pas, un string vide est renvoyé.
+     */
+    public function validContact(ServerRequest $request, Contact $contact): string
+    {
+        $error = '';
+        $attributs = $request->getParsedBody();
+        $civilityTitle = $attributs['civilityTitle'];
+        $lastName = $attributs['lastName'];
+        $firstName = $attributs['firstName'];
+        $secondName = $attributs['secondName'];
+        $organisation = $attributs['organisation'];
+        $position = $attributs['position'];
+        $phoneNumber = $attributs['phoneNumber'];
+        $mailAddress = $attributs['mailAddress'];
+        $note = $attributs['note'];
+        if (empty($civilityTitle)) $contact->setCivilityTitle(CivilityTitle::AUTRE);
+        else $contact->setCivilityTitle(CivilityTitle::fromString($civilityTitle));
+        $contact->setFirstName($firstName);
+        $contact->setSecondName($secondName);
+        $contact->setOrganisation($organisation);
+        $contact->setPosition($position);
+        if (empty($lastName)) $error = 'Le nom du contact est obligatoire pour la création du contact.';
+        elseif (empty($phoneNumber) && empty($mailAddress)) $error = 'Au minimum, le contact doit posséder un numéro de téléphone ou une adresse mail.';
+        if (!empty($lastName)) $contact->setLastName($lastName);
+        if (!empty($phoneNumber)) $contact->setPhoneNumber($phoneNumber);
+        if (!empty($mailAddress)) $contact->setMailAddress($mailAddress);
+        return $error;
     }
 }
