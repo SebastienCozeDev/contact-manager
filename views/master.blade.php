@@ -11,4 +11,5 @@
     </main>
     @include('footer')
 </body>
+@include('scripts')
 </html>

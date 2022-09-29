@@ -51,7 +51,7 @@ class DBMapper implements IDBMapper
             $this->datas =  GenerateContacts::readFileData($this->filename);
         } catch (Exception $e) {
             try {
-                GenerateContacts::writeFileContactData($this->filename, 300);
+                GenerateContacts::writeFileContactData($this->filename, 1000);
             } catch (Exception $e) {
                 throw new Exception(sprintf('[FileAccessError] %s', $this->filename));
             }

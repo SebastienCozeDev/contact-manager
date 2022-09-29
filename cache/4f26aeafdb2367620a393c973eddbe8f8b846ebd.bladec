@@ -11,4 +11,5 @@
  </main>
  <?php echo $this->runChild('footer'); ?>
 </body>
+<?php echo $this->runChild('scripts'); ?>
 </html>
