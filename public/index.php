@@ -39,6 +39,11 @@ $router->post('/contacts', [ContactsController::class, 'createContactPost']);
 $router->get('/contacts/{id}/update', [ContactsController::class, 'updateContactGet']);
 $router->post('/contacts/{id}', [ContactsController::class, 'updateContactPost']);
 
+/**
+ * Suppression d'un contact.
+ */
+$router->get('/contacts/{id}/delete', [ContactsController::class, 'delete']);
+
 
 
 try {

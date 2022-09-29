@@ -98,7 +98,7 @@ class ContactsController
             return $this->blade->run('create-contact', ['title' => 'Nouveau contact', 'contact' => $contact, 'feedback' => $error]);
         }
         $this->db->insertContact($contact);
-        return new RedirectResponse('/contacts/'.$contact->getId());
+        return new RedirectResponse('/contacts/' . $contact->getId());
     }
 
     /**
@@ -115,7 +115,19 @@ class ContactsController
             return $this->blade->run('update-contact', ['contact' => $contact, 'feedback' => $error]);
         }
         $this->db->updateContact($contact);
-        return new RedirectResponse('/contacts/'.$contact->getId());
+        return new RedirectResponse('/contacts/' . $contact->getId());
+    }
+
+    /**
+     * Permet de supprimer un contact et de rediriger le client vers la liste des contacts.
+     * @param int $id Étant l'identifiant du contact.
+     * @return RedirectResponse Étant la redirection.
+     * @throws Exception
+     */
+    public function delete(int $id): RedirectResponse
+    {
+        $this->db->deleteContact($id);
+        return new RedirectResponse('/contacts');
     }
 
     /**
