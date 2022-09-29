@@ -51,3 +51,8 @@ Le projet consiste en la conception d'un gestionnaire de contacts. Chaque contac
 - Noir (``#000000``)
 - Blanc (``#EBFFD4``)
 - Vert (``#1F2E0D``)
+
+# Polices
+
+- Opens Sans *pour les titres*
+- Muli *pour les texts*

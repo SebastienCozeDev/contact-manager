@@ -2,62 +2,87 @@
 
 @section('title', $title)
 
-@if(isset($feedback))
-    <h4>Attention</h4>
-    <p>{{ $feedback }}</p>
-@endif
-
 @section('main')
-    <form method="POST" action="/contacts">
-        <fieldset>
-            <legend>Ajout d'un contact</legend>
-            <div>
-                <label for="civility-title">Titre de civilité : </label>
-                <select name="civilityTitle" id="civility-title">
-                    <option value="Autre">Autre</option>
-                    <option value="Madame">Madame</option>
-                    <option value="Monsieur">Monsieur</option>
-                    <option value="Maître">Maître</option>
-                    <option value="Docteur">Docteur</option>
-                    <option value="Docteure">Docteure</option>
-                </select>
+    @if(isset($feedback))
+        <div class="content notification is-danger">
+            <button class="delete"></button>
+            <p>{{ $feedback }}</p>
+        </div>
+    @endif
+    <article class="content box">
+        <h2>Ajout d'un contact</h2>
+        <form method="POST" action="/contacts">
+            <div class="field">
+                <label class="label" for="civility-title">Titre de civilité</label>
+                <div class="control">
+                    <div class="select">
+                        <select name="civilityTitle" id="civility-title">
+                            <option value="Autre">Autre</option>
+                            <option value="Madame">Madame</option>
+                            <option value="Monsieur">Monsieur</option>
+                            <option value="Maître">Maître</option>
+                            <option value="Docteur">Docteur</option>
+                            <option value="Docteure">Docteure</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label for="lastname">Nom de famille : </label>
-                <input type="text" name="lastName" id="lastname" value="{{ $contact->getLastName() }}" placeholder="Nom de famille du contact">
+            <div class="field">
+                <label class="label" for="lastname">Nom de famille</label>
+                <div class="control">
+                    <input class="input" type="text" name="lastName" id="lastname" value="{{ $contact->getLastName() }}" placeholder="Nom de famille du contact">
+                </div>
             </div>
-            <div>
-                <label for="firstname">Premier prénom : </label>
-                <input type="text" name="firstName" id="firstname" value="{{ $contact->getFirstName() }}" placeholder="Premier prénom du contact">
+            <div class="field">
+                <label class="label" for="firstname">Premier prénom</label>
+                <div class="control">
+                    <input class="input" type="text" name="firstName" id="firstname" value="{{ $contact->getFirstName() }}" placeholder="Premier prénom du contact">
+                </div>
             </div>
-            <div>
-                <label for="secondname">Second prénom : </label>
-                <input type="text" name="secondName" id="secondname" value="{{ $contact->getSecondName() }}" placeholder="Second prénom du contact">
+            <div class="field">
+                <label class="label" for="secondname">Second prénom</label>
+                <div class="control">
+                    <input class="input" type="text" name="secondName" id="secondname" value="{{ $contact->getSecondName() }}" placeholder="Second prénom du contact">
+                </div>
             </div>
-            <div>
-                <label for="organisation">Organisation : </label>
-                <input type="text" name="organisation" id="organisation" value="{{ $contact->getOrganisation() }}" placeholder="Organisation du contact">
+            <div class="field">
+                <label class="label" for="organisation">Organisation</label>
+                <div class="control">
+                    <input class="input" type="text" name="organisation" id="organisation" value="{{ $contact->getOrganisation() }}" placeholder="Organisation du contact">
+                </div>
             </div>
-            <div>
-                <label for="position">Poste : </label>
-                <input type="text" name="position" id="position" value="{{ $contact->getPosition() }}" placeholder="Poste du contact">
+            <div class="field">
+                <label class="label" for="position">Poste</label>
+                <div class="control">
+                    <input class="input" type="text" name="position" id="position" value="{{ $contact->getPosition() }}" placeholder="Poste du contact">
+                </div>
             </div>
-            <div>
-                <label for="phoneNumber">Numéro de téléphone : </label>
-                <input type="tel" name="phoneNumber" id="phoneNumber" value="{{ $contact->getPhoneNumber() }}" placeholder="Numéro de téléphone du contact">
+            <div class="field">
+                <label class="label" for="phoneNumber">Numéro de téléphone</label>
+                <div class="control">
+                    <input class="input" type="tel" name="phoneNumber" id="phoneNumber" value="{{ $contact->getPhoneNumber() }}" placeholder="Numéro de téléphone du contact">
+                </div>
             </div>
-            <div>
-                <label for="mailAddress">Adresse mail : </label>
-                <input type="email" name="mailAddress" id="mailAddress" value="{{ $contact->getMailAddress() }}" placeholder="Adresse mail du contact">
+            <div class="field">
+                <label class="label" for="mailAddress">Adresse mail</label>
+                <div class="control">
+                    <input class="input" type="email" name="mailAddress" id="mailAddress" value="{{ $contact->getMailAddress() }}" placeholder="Adresse mail du contact">
+                </div>
             </div>
-            <div>
-                <label for="note">Note : </label>
-                <textarea id="note" name="note" placeholder="Note du contact">{{ $contact->getNote() }}</textarea>
+            <div class="field">
+                <label class="label" for="note">Note</label>
+                <div class="control">
+                    <textarea class="textarea" id="note" name="note" placeholder="Note du contact">{{ $contact->getNote() }}</textarea>
+                </div>
             </div>
-            <div>
-                <a href="/contacts">Retour</a>
-                <button type="submit">Ajouter</button>
+            <div class="field is-grouped">
+                <div class="control">
+                    <a class="button is-danger is-light" href="/contacts">Retour</a>
+                </div>
+                <div class="control">
+                    <button class="button is-success" type="submit">Ajouter</button>
+                </div>
             </div>
-        </fieldset>
-    </form>
+        </form>
+    </article>
 @endsection
