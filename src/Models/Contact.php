@@ -147,7 +147,7 @@ class Contact implements JsonSerializable
      * Getter pour la liste des adresses mail du contact.
      * @return string Étant le tableau des adresses mail du contact.
      */
-    public function getMailAddresses(): string
+    public function getMailAddress(): string
     {
         return $this->mailAddress;
     }

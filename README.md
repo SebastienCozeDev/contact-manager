@@ -45,3 +45,14 @@ Le projet consiste en la conception d'un gestionnaire de contacts. Chaque contac
 - [views](views) étant le répertoire où sont stocké nos vues.
 - [composer.json](composer.json) étant le fichier où est répertorié des informations utiles pour la commande ``composer``.
 - [README.md](README.md) étant le fichier qui décrit le projet.
+
+### Couleur du projet
+
+- Noir (``#000000``)
+- Blanc (``#EBFFD4``)
+- Vert (``#1F2E0D``)
+
+# Polices
+
+- Opens Sans *pour les titres*
+- Muli *pour les texts*
